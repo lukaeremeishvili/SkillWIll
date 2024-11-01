@@ -143,16 +143,130 @@
 
 
 
-const array = [1, 5, 7, 2, 5, 7, 1, 9]
-const resFilter = array.filter(function(element, index){
-    return element >= 5
-});
+// const array = [1, 5, 7, 2, 5, 7, 1, 9]
+// const resFilter = array.filter(function(element, index){
+//     return element >= 5
+// });
 
-const resFind = array.find(function(el){
-    return el > 4
-});
+// const resFind = array.find(function(el){
+//     return el > 4
+// });
 
-console.log(array);
-console.log(resFind);
+// console.log(array);
+// console.log(resFind);
 
 
+// const user = {
+//     firstName: 'James',
+//     lastName: 'Bond',
+//     nickName: '007',
+//     age: 40
+// }
+
+// const {firstName, lastName, nickName, age} = user
+
+// console.log(firstName, lastName, nickName, age);
+
+// const users = ['James', 'Giga', 'Tornike','Giorgi'];
+
+// const [name1, name2] = users;
+
+// console.log(name1, name2);
+
+// const firstName = 'Temo';
+
+// const user = {
+//     firstName: 'James',
+//     lastName: 'Bond',
+//     profile: {
+//     nickName: '007',
+//     age: 40,
+//     address: {
+//         street: 'tamarashvili13'
+//     }
+//     }
+// }
+
+// const {firstName:myFirstName, lastName, profile: {nickName, age, address: {street} } } = user
+
+// // console.log(myFirstName);
+
+// function myProfile(user){
+//     return 'address' + ' ' + user.profile.address.street
+// }
+
+// console.log(myProfile(user));
+
+
+// function profile(username){
+//     return 'hello' + ' ' + username
+// }
+
+// // string literals
+
+// const newProfile = (username) => {
+//     return `hello ${username}`
+// }
+
+// console.log(newProfile('James'));
+
+
+// const user = {
+//         firstName: 'James',
+//         lastName: 'Bond',
+//         sayHello: function(){
+//             console.log(`${this.firstName} ${this.lastName}`);
+            
+//         }
+// }
+
+// user.sayHello()
+// const user = {
+//     firstName: 'James',
+//     lastName: 'Bond',
+//     sayHello: () => {
+//         console.log(this);
+        
+//     }
+// }
+
+// user.sayHello()
+
+// const {address: {city} = {} } = user
+
+// console.log(city);
+
+// const user = {
+//     firstName: 'James',
+//     lastName: 'Bond',
+//     profile: {
+//         age: 40,
+//         nickname: '007'
+//     },
+//     targets: ['target1', 'target2']
+// }
+
+
+// const user2 = {
+//     ...user,
+//     profile: {
+//         ...user.profile
+//     },
+//     targets: [...user.targets]
+// }
+
+// user.profile.age = 45
+
+// console.log(user.profile.age);
+// console.log(user2.profile.age);
+
+// function calculateSum(...args){
+//     let sum = 0
+
+//     for(const num of args){
+//         sum += num
+//     }
+//     return sum
+// }
+
+// console.log(calculateSum(3,5,10));
