@@ -65,7 +65,6 @@ const OG = {
     address: { street: "Tamarashvili13" }, 
 };
 
-
 const copyOb = Clone(OG);
 
 
