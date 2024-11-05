@@ -270,3 +270,109 @@
 // }
 
 // console.log(calculateSum(3,5,10));
+
+
+// const calculatePercentage = (numbers) =>{
+//     let sum = 0 
+//     for(const num of numbers){
+//         sum += num
+//         // sum = sum + num
+//     }
+
+//     return numbers.map((el) => ((el / sum) *100).toFixed(2));
+// }
+// console.log(calculatePercentage(0.2 + 0.1));
+
+// const names = ["James", "Temo", "Giga"];
+
+// names.pop()
+// names.push("Nona")
+// names.shift()
+// names.unshift("Tamuna");
+
+// const newArray = names.slice(1)
+
+// console.log(names);
+// console.log(newArray);
+
+// const combineArrays = ([start, end], arr2) => {
+//     const result = []
+//     result.push(arr1[0])
+//     for(const num of arr2){
+//         result.push(num)
+//     }
+//     result.push(arr1[1])
+//     return result
+
+//     return [start, ...arr2, end]
+// }
+
+// console.log(combineArrays([1, 9], [2, 3, 4, 5, 6, 7, 8]));
+
+
+
+// const capitalWords = (words) => {
+//     // const result = []
+//     // for(const word of words){
+//     //     const splitArr = word.split('_') // ["agent", "james", "bond"] 
+//     //     const capitalArr = []
+//     //     for(const w of splitArr){
+//     //         const upper = w[0].toUpperCase() + w.slice(1)
+//     //         capitalArr.push(upper)
+//     //     }
+
+//     //     result.push(capitalArr.join(" "))
+//     // }
+//     // return result
+
+//     return words
+//     .map((word) => word.split('_')
+//     .map((w) =>w[0].toUpperCase() + w.slice(1))
+//     .join(" ")
+// )
+// }
+
+// console.log(capitalWords(["hello_world", "agent_james_bond", "world_cup_sports_association"]));
+
+// const person = {
+//     name: 'James',
+//     address: {
+//         tbilisi: { district: {street: "Tamarashvili"}}
+//     },
+//     friends:[
+//         {closeFriend: {name: "Giga"}},
+//         {closeFriend: {name: "Temo"}}
+//     ]
+// }
+
+
+// const deepCopy = (obj) => {
+//     const result = {}
+
+//     for(const fn in obj){
+//         if(typeof obj[fn] === 'object'){
+
+//             if(Array.isArray(obj[fn])){
+//                 // Array
+//                 result[fn] = obj[fn].map((el) => deepCopy(el))
+//             }else{
+//                 // Object
+//                 result[fn] = deepCopy(obj[fn])
+//             }
+
+//         }else{
+//             // Primitive
+//             result[fn] = obj[fn]
+//         }
+//     }
+
+//     return result
+// }
+
+// const person2 = deepCopy(person)
+// person2.name = 'Jango';
+// person2.address.tbilisi.district.street = 'Marjanishvili';
+// person2.friends[0].closeFriend.name = "Nino";
+
+// console.log(person);
+// console.log(person2);
