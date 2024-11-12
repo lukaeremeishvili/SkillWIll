@@ -1,0 +1,35 @@
+.container{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+.row{
+    margin-top: 10px;
+}
+.modal{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+}
+
+.open-button{
+    background-color: rgb(6, 69, 91);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hidden{
+    display: flex;
+}

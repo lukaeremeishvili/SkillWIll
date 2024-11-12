@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="row">
+        <button class="open-button" onclick="toggle()">Open Modal</button>
+    </div>
+
+    <div class="row">
+        <input type="text" id="color">
+        <button id="button">Change Color</button>
+    </div>
+    <div class="row">
+        <input type="text" id="numberInput">
+        <button id="calculate">Calculate</button>
+        <div class="result" id="average"></div>
+        
+    </div>
+    <div class="container" id="modal">
+        <div class="modal">
+            <h2>Modal Content</h2>
+            <p>This is a modal with a black/transparent background behind it.</p>
+            <button onclick="toggle()">Close</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
