@@ -378,3 +378,109 @@
 // console.log(person2);
 
 
+// Callbacks
+
+// setTimeout(() => {
+//     console.log('started')
+    
+// }, 3000 )
+
+// function dance(action, callback){
+//     console.log(action);
+//     callback()
+// }
+// dance('this is a long dance', () => {
+//     console.log('Applaud');
+    
+// })
+
+
+// (Promises/Then/Catch)
+
+// const promiseResponse  = new Promise((resolve, reject) => {
+//     if(Math.random() > 0.1){
+//         resolve('this is true')
+//     }else{
+//         reject('this is false')
+//     }
+// })
+
+
+// promiseResponse
+// .then((res) => console.log(res))
+// .catch(err => console.log(err))
+// .finally(() => console.log('this was tuff')) 
+
+
+
+// function makeToys(){
+//     return new Promise((resolve, reject) => {
+//         if(Math.random() > 0.1){
+//             resolve('Undefected')
+//         }else{
+//             reject('Defected')
+//         }
+//     })
+// }
+
+// function sellToys(status){
+//     return new Promise((resolve, reject) => {
+//         if(status === 'Undefected'){
+//            if(Math.random() > 0.7){
+//             resolve('Toy has been sold')
+//         }else{
+//             reject('Toy was unsuccessful')
+//         }
+//     }
+//     })
+// }
+
+// makeToys()
+//     .then((status) => sellToys(status))
+//     .then((res) => console.log(res))
+//     .catch(err => console.log(err))
+
+
+
+//  ASYNC / AWAIT
+
+// async function sum() {
+//     return 1 + 1
+// }
+
+
+// async function result() {
+//     const res = await sum()
+//     return res
+// }
+// console.log(result())
+
+// async function makeToys() {
+//     if(Math.random() > 0.1){
+//         resolve('Undefected')
+//     }else{
+//         reject('Defected')
+//     }
+// }
+
+// async function sellToys(status){
+//     if(status === 'Undefected'){
+//         if(Math.random() > 0.7){
+//             return 'Toy has been sold'
+//         } else {
+//             return 'Toy was unsuccessful'
+//         }
+//     }
+// }
+
+// async function promisify() {
+//     try {
+//         const status = await makeToys()
+//         const result = await sellToys(status)
+//         console.log(result);
+//     } catch (error){
+//         console.log(error)
+//     }
+// }
+
+// promisify();
