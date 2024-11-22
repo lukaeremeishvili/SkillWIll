@@ -10,15 +10,11 @@ function updateSliderPosition() {
     slider.style.transform = `translateX(${offset}px)`;
     adjustSliderContainerWidth(); 
 }
-
-
 function adjustSliderContainerWidth() {
     const container = document.querySelector('.slider-container');
     const containerWidth = slidesToShow * slideWidth;
     container.style.width = `${containerWidth}px`; 
 }
-
-
 function nextSlide() {
     if (currentIndex < totalSlides - slidesToShow) {
         currentIndex++;
@@ -27,8 +23,6 @@ function nextSlide() {
     }
     updateSliderPosition();
 }
-
-
 function prevSlide() {
     if (currentIndex > 0) {
         currentIndex--;

@@ -484,3 +484,9 @@
 // }
 
 // promisify();
+
+const isNumber = require('is-number');
+
+console.log(isNumber(125));
+console.log(isNumber("125"));
+console.log(isNumber("false"));
