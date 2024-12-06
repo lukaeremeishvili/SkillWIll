@@ -17,26 +17,16 @@ class TaskManager extends Component {
         { id: 5, task: "Go for a jog" },
       ],
     };
+    console.log("TaskManager: Constructor");
   }
 
-  getNextId = () => {
-    const allIds = [
-      ...this.state.todo.map(task => task.id),
-      ...this.state.completed.map(task => task.id),
-    ];
-    const highestId = Math.max(0, ...allIds);
-    return highestId + 1;
-  };
-
   addTask = (newTask) => {
+    console.log("TaskManager: Adding", newTask);
     if (newTask.task.trim() !== "") {
-      const newId = this.getNextId();
-
       const newTaskWithId = {
-        id: newId,
+        id: Date.now(),
         task: newTask.task,
       };
-
       this.setState((prevState) => ({
         todo: [...prevState.todo, newTaskWithId],
       }));
@@ -44,28 +34,36 @@ class TaskManager extends Component {
   };
 
   completeTask = (taskId) => {
+    console.log("TaskManager: Completing", taskId);
     const taskToComplete = this.state.todo.find((task) => task.id === taskId);
-    this.setState((prevState) => ({
-      todo: prevState.todo.filter((task) => task.id !== taskId),
-      completed: [...prevState.completed, taskToComplete],
-    }));
+    if (taskToComplete) {
+      this.setState((prevState) => ({
+        todo: prevState.todo.filter((task) => task.id !== taskId),
+        completed: [...prevState.completed, taskToComplete],
+      }));
+    }
   };
 
   removeTask = (taskId) => {
+    console.log("TaskManager: Removing", taskId);
     this.setState((prevState) => ({
       completed: prevState.completed.filter((task) => task.id !== taskId),
     }));
   };
 
   revertTask = (taskId) => {
+    console.log("TaskManager: Reverting", taskId);
     const taskToRevert = this.state.completed.find((task) => task.id === taskId);
-    this.setState((prevState) => ({
-      completed: prevState.completed.filter((task) => task.id !== taskId),
-      todo: [...prevState.todo, taskToRevert],
-    }));
+    if (taskToRevert) {
+      this.setState((prevState) => ({
+        completed: prevState.completed.filter((task) => task.id !== taskId),
+        todo: [...prevState.todo, taskToRevert],
+      }));
+    }
   };
 
   render() {
+    console.log("TaskManager: Rendering", this.state);
     return (
       <div className="container">
         <h1>Tasks</h1>

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lukaeremeishvili/SkillWIll#readme",
   "dependencies": {
+    "@testing-library/react": "^16.1.0",
     "is-number": "^7.0.0",
     "validator": "^13.12.0"
   }
