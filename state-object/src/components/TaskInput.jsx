@@ -1,40 +1,64 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class TaskInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      task: "",
-    };
-    console.log("TaskInput: Constructor");
-  }
+const TaskInput = ({ onAddTask }) => {
+  const [task, setTask] = useState("");
 
-  handleChange = (e) => {
-    console.log("TaskInput: Changing", e.target.value);
-    this.setState({ task: e.target.value });
-  };
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("TaskInput: Submitting", this.state.task);
-    this.props.onAddTask({ task: this.state.task });
-    this.setState({ task: "" });
+    if (task.trim()) {
+      onAddTask({ task });
+      setTask("");
+    }
   };
 
-  render() {
-    console.log("TaskInput: Rendering", this.state);
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          value={this.state.task}
-          onChange={this.handleChange}
-          placeholder="Enter a task"
-        />
-        <button type="submit">Add</button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmit} className="task-input-container">
+      <input
+        type="text"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+        placeholder="Enter a task"
+      />
+      <button type="submit">Add</button>
+    </form>
+  );
+
+  /*  class TaskInput extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        task: "",
+      };
+    }
+  
+    handleInputChange = (e) => {
+      this.setState({ task: e.target.value });
+    };
+  
+    handleSubmit = (e) => {
+      e.preventDefault();
+      if (this.state.task.trim()) {
+        this.props.onAddTask({ task: this.state.task });
+        this.setState({ task: "" });
+      }
+    };
+  
+    render() {
+      return (
+        <form onSubmit={this.handleSubmit} className="task-input-container">
+          <input
+            type="text"
+            value={this.state.task}
+            onChange={this.handleInputChange}
+            placeholder="Enter a task"
+          />
+          <button type="submit">Add</button>
+        </form>
+      );
+    }
+  }  */
+ 
+
+};
 
 export default TaskInput;

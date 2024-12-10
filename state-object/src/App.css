@@ -92,13 +92,12 @@ h1 {
 }
 
 .list li .task-text {
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
-/* Buttons */
 .list li .buttons-container {
   display: flex;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .list li button {
@@ -129,4 +128,21 @@ h1 {
 
 .list li button:first-child:hover {
   background-color: #218838;
+}
+
+/* Add Button */
+.task-input-container button {
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.task-input-container button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.task-input-container button:active {
+  transform: translateY(2px);
 }
