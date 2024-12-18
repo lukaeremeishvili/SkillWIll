@@ -1,23 +1,41 @@
 import React from "react";
 
-const TodoList = React.memo(({ tasks, onCompleteTask, onRemoveTask }) => {
+const TodoList = ({ tasks, onDragEnd }) => {
+  const handleDragStart = (e, taskId) => {
+    e.dataTransfer.setData("taskId", taskId);
+    e.dataTransfer.setData("source", "todo");
+  };
+
+  const handleDrop = (e, destination) => {
+    const taskId = parseInt(e.dataTransfer.getData("taskId"), 10);
+    const source = e.dataTransfer.getData("source");
+    onDragEnd(taskId, source, destination);
+  };
+
   return (
-    <div className="list">
-      <h2>To-Do Tasks</h2>
+    <div
+      className="list"
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={(e) => handleDrop(e, "todo")}
+    >
+      <h2>Todo</h2>
       <ul>
         {tasks.map((task) => (
-          <li key={task.id}>
-            <div className="task-text">{task.task}</div>
-            <div className="task-id">ID: {task.id}</div>
-            <div className="buttons-container">
-              <button onClick={() => onCompleteTask(task.id)}>Complete</button>
-              <button onClick={() => onRemoveTask(task.id)}>Remove</button>
-            </div>
+          <li
+            key={task.id}
+            draggable
+            onDragStart={(e) => handleDragStart(e, task.id)}
+          >
+            {task.task}
           </li>
         ))}
       </ul>
     </div>
   );
+};
+
+export default TodoList;
+
 
   /* class TodoList extends React.Component {
     render() {
@@ -44,5 +62,3 @@ const TodoList = React.memo(({ tasks, onCompleteTask, onRemoveTask }) => {
     }
   } */
   
-})
-export default TodoList;
