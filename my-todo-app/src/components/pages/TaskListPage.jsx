@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 import { fetchTodos, deleteTodo } from "../../api";
 import { useNavigate } from "react-router-dom";
 import TodoItem from "../TodoItem";
+import { useLanguage } from "../../contexts/LanguageContext"; 
+import { translations } from "../../translation"; 
 
 function TaskListPage() {
   const [tasklist, setTasklist] = useState([]);
   const [refetch, setRefetch] = useState(false);
   const navigate = useNavigate();
+  const { language } = useLanguage(); 
 
   useEffect(() => {
     const loadTasklist = async () => {
@@ -37,37 +40,42 @@ function TaskListPage() {
       console.error("Error deleting task:", error);
     }
   };
+
   return (
     <div className="container">
-      <h1>Task Manager</h1>
-      <button className="btn btn-primary" onClick={() => navigate("/add-task")}>
-        Add Task
+      <h1>{translations[language].taskList}</h1> 
+      <button
+        className="btn btn-primary"
+        onClick={() => navigate("/add-task")}
+      >
+        {translations[language].addTask} 
       </button>
       <TodoList
         tasklist={tasklist}
         onDelete={handleDelete}
         onEdit={(uuid) => navigate(`/edit-task/${uuid}`)}
+        translations={translations[language]} 
       />
     </div>
   );
 }
 
-function TodoList({ tasklist, onDelete, onEdit }) {
+function TodoList({ tasklist, onDelete, onEdit, translations }) {
   if (!tasklist || tasklist.length === 0) {
-    return <p>No tasks available.</p>;
+    return <p>{translations.noTasks}</p>; 
   }
 
   return (
     <table className="task-table">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Username</th>
-          <th>Status</th>
-          <th>Deadline</th>
-          <th>Info</th>
-          <th>Edit</th>
-          <th>Delete</th>
+          <th>{translations.title}</th>
+          <th>{translations.username}</th> 
+          <th>{translations.status}</th> 
+          <th>{translations.deadline}</th> 
+          <th>{translations.info}</th>
+          <th>{translations.edit}</th>
+          <th>{translations.delete}</th> 
         </tr>
       </thead>
       <tbody>
@@ -88,6 +96,7 @@ TodoList.propTypes = {
   tasklist: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
+  translations: PropTypes.object.isRequired, 
 };
 
 export default TaskListPage;

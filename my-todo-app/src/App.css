@@ -63,6 +63,7 @@ h1 {
   border-collapse: collapse;
   text-align: left;
   border: 1px solid #ccc;
+  table-layout: fixed;
 }
 
 .task-table th, .task-table td {
