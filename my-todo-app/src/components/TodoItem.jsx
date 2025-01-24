@@ -13,6 +13,7 @@ function TodoItem({ task, onDelete, onEdit }) {
     }
     return "No Title";
   };
+
   return (
     <tr>
       <td>{renderTitle()}</td>
@@ -21,10 +22,10 @@ function TodoItem({ task, onDelete, onEdit }) {
       <td>{task.dueDate}</td>
       <td>{task.info}</td>
       <td>
-        <button onClick={() => onEdit(task._uuid)}>Edit</button>
+        <button onClick={() => onEdit(task.id || task._uuid)}>Edit</button>
       </td>
       <td>
-        <button onClick={() => onDelete(task._uuid)}>Delete</button>
+        <button onClick={() => onDelete(task.id || task._uuid)}>Delete</button>
       </td>
     </tr>
   );
@@ -32,15 +33,12 @@ function TodoItem({ task, onDelete, onEdit }) {
 
 TodoItem.propTypes = {
   task: PropTypes.shape({
-    _uuid: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    _uuid: PropTypes.string,
     title: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.shape({
         title: PropTypes.string.isRequired,
-        completed: PropTypes.bool,
-        dueDate: PropTypes.string,
-        info: PropTypes.string,
-        name: PropTypes.string,
       }),
     ]).isRequired,
     username: PropTypes.string,
@@ -51,4 +49,5 @@ TodoItem.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
 };
+
 export default TodoItem;

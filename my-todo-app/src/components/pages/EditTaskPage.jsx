@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchTodoById, updateTodo } from "../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTaskById, updateTask } from "../../slices/tasksSlice";
 
 function EditTaskPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const task = useSelector((state) =>
+    state.tasks.find((task) => task.id === id)
+  );
 
   const [taskName, setTaskName] = useState("");
   const [username, setUsername] = useState("");
@@ -15,14 +20,10 @@ function EditTaskPage() {
   useEffect(() => {
     const fetchTask = async () => {
       try {
-        const response = await fetchTodoById(id);
-  
+        const response = await dispatch(fetchTaskById(id)).unwrap();
         if (response) {
           const { title, username, completed, dueDate, info } = response;
-  
-          const taskTitle = typeof title === 'string' ? title : title?.name?.name?.title || "No Title";
-  
-          setTaskName(taskTitle);
+          setTaskName(title);
           setUsername(username);
           setCompleted(completed);
           setDueDate(dueDate);
@@ -32,31 +33,39 @@ function EditTaskPage() {
         console.error("Error fetching task:", error);
       }
     };
-  
-    fetchTask();
-  }, [id]);
-  
+
+    if (!task) {
+      fetchTask();
+    } else {
+      const { title, username, completed, dueDate, info } = task;
+      setTaskName(title);
+      setUsername(username);
+      setCompleted(completed);
+      setDueDate(dueDate);
+      setInfo(info);
+    }
+  }, [dispatch, id, task]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const updatedTask = {
+      id,
+      title: taskName,
+      username,
       completed,
       dueDate,
       info,
-      title: taskName,
-      username,
     };
-  
-    console.log("Updated Task:", updatedTask);
-  
+
     try {
-      await updateTodo(id, updatedTask);
+      await dispatch(updateTask(updatedTask)).unwrap();
       navigate("/");
     } catch (error) {
       console.error("Error updating task:", error);
     }
   };
-  
+
   const handleBack = () => {
     navigate("/");
   };
@@ -102,10 +111,7 @@ function EditTaskPage() {
         </div>
         <div>
           <label>Info</label>
-          <textarea
-            value={info}
-            onChange={(e) => setInfo(e.target.value)}
-          />
+          <textarea value={info} onChange={(e) => setInfo(e.target.value)} />
         </div>
         <button type="submit">Save Changes</button>
       </form>

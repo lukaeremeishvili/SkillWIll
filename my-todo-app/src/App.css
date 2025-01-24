@@ -79,3 +79,21 @@ h1 {
 button {
   margin-left: 10px;
 }
+
+
+/* dark/light mode */
+
+.light {
+  --background-color: #ffffff;
+  --text-color: #000000;
+}
+
+.dark {
+  --background-color: #242424;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}

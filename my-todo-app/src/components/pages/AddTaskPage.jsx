@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addTodo } from "../../api";
+import { addTask } from "../../slices/tasksSlice";
 
 function AddTaskPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [name, setName] = useState("");
   const [completed, setCompleted] = useState(false);
@@ -14,17 +16,15 @@ function AddTaskPage() {
     e.preventDefault();
 
     const newTask = {
-      title: title,
-      completed: completed,
-      dueDate: dueDate,
-      info: info,
+      title,
+      completed,
+      dueDate,
+      info,
       username: name,
     };
 
-    console.log(newTask);
-
     try {
-      await addTodo(newTask);
+      dispatch(addTask(newTask));
       navigate("/");
     } catch (error) {
       console.error("Error adding task:", error);

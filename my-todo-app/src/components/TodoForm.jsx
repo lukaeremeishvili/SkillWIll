@@ -1,7 +1,10 @@
-import { useState} from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { addTask, updateTask } from "../slices/tasksSlice";
 
-function TodoForm({ onAdd, initialData, onBack }) {
+function TodoForm({ initialData, onBack }) {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState(initialData ? initialData.title : "");
   const [username, setUsername] = useState(
     initialData ? initialData.username : ""
@@ -17,13 +20,18 @@ function TodoForm({ onAdd, initialData, onBack }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedTask = {
-      title: { title },
+      title,
       username,
       completed,
       dueDate,
       info,
     };
-    onAdd(updatedTask);
+
+    if (initialData && initialData.id) {
+      dispatch(updateTask({ id: initialData.id, updatedData: updatedTask }));
+    } else {
+      dispatch(addTask(updatedTask));
+    }
   };
 
   return (
@@ -79,7 +87,6 @@ function TodoForm({ onAdd, initialData, onBack }) {
 }
 
 TodoForm.propTypes = {
-  onAdd: PropTypes.func.isRequired,
   initialData: PropTypes.object,
   onBack: PropTypes.func.isRequired,
 };
