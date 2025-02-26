@@ -1,4 +1,4 @@
-const about = () => {
+const about:React.FC = () => {
   return <div>About Page</div>;
 };
 

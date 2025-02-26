@@ -12,12 +12,15 @@ import {
 } from "@mui/material";
 import { AccountCircle, Adb, Menu as MenuIcon } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
+import AuthButtons from "./AuthButtons";
+import { useAuth } from "../../context/useAuth";
 
 interface NavbarProps {
   links: { label: string; path: string }[];
 }
 
 const Navbar: React.FC<NavbarProps> = ({ links }) => {
+  const { token, setToken } = useAuth();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -36,6 +39,11 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
 
   const toggleDrawer = (open: boolean) => {
     setDrawerOpen(open);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setToken(null);
   };
 
   const renderLinks = () => (
@@ -66,7 +74,6 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         <Typography variant="h6" sx={{ display: "flex", alignItems: "center" }}>
           <Adb sx={{ fontSize: "2rem", mr: 2 }} />
         </Typography>
-
         {isMobile ? (
           <>
             <IconButton
@@ -98,29 +105,33 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         ) : (
           renderLinks()
         )}
-
-        <IconButton
-          edge="end"
-          color="inherit"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={handleProfileMenuOpen}
-          sx={{ ml: "auto" }}
-        >
-          <AccountCircle />
-        </IconButton>
-
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleMenuClose}
-        >
-          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My Account</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
-        </Menu>
+        <Box sx={{ flexGrow: 1 }} />
+        {token ? (
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+              <MenuItem onClick={handleMenuClose}>My Account</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>{" "}
+            </Menu>
+          </Box>
+        ) : (
+          <AuthButtons /> 
+        )}
       </Toolbar>
     </AppBar>
   );

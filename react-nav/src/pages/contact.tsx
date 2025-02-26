@@ -1,4 +1,4 @@
-const contact = () => {
+const contact:React.FC = () => {
   return <div>Contact Page</div>;
 };
 
