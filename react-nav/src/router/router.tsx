@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Products from "../pages/products";
+import Profile from "../pages/profile";
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
       <Route element={<ProtectedRoutes />}>
         <Route path="/" element={<Layout />}>
           <Route path="/products" element={<Products />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Route>
 

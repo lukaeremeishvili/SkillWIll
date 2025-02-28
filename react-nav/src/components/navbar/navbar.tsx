@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -9,6 +9,7 @@ import {
   Box,
   useMediaQuery,
   Drawer,
+  CircularProgress,
 } from "@mui/material";
 import { AccountCircle, Adb, Menu as MenuIcon } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
@@ -25,7 +26,20 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
   const [open, setOpen] = React.useState(false);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
+  const [loading, setLoading] = useState(true);
+
   const isMobile = useMediaQuery("(max-width: 600px)");
+
+  useEffect(() => {
+    if (token) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    } else {
+      setLoading(false);
+    }
+  }, [token]);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -108,29 +122,41 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
         <Box sx={{ flexGrow: 1 }} />
         {token ? (
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <IconButton
-              edge="end"
-              color="inherit"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-              <MenuItem onClick={handleMenuClose}>My Account</MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>{" "}
-            </Menu>
+            {loading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              <>
+                <IconButton
+                  edge="end"
+                  color="inherit"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem onClick={handleMenuClose}>
+                    <NavLink
+                      to="/profile"
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      Profile
+                    </NavLink>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
+              </>
+            )}
           </Box>
         ) : (
-          <AuthButtons /> 
+          !loading && <AuthButtons />
         )}
       </Toolbar>
     </AppBar>
