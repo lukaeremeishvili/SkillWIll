@@ -15,6 +15,7 @@ const Navbar: React.FC = () => {
     dispatch(fetchData("https://jsonplaceholder.typicode.com/posts"));
   }, [dispatch]);
 
+
   return (
     <div>
       <button onClick={() => dispatch(toggleNavbar())}>

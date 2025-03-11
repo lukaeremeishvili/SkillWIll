@@ -1,10 +1,10 @@
 import React from "react";
-import Navbar from "./components/Navbar";
+import AppRouter from "./route/router";
 
 const App: React.FC = () => {
   return (
     <div>
-      <Navbar />
+      <AppRouter />
     </div>
   );
 };
