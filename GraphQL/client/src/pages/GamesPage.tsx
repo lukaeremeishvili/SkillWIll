@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { GET_GAMES } from "../graphql/queries/get-games";
 import { GET_AUTHORS } from "../graphql/queries/get-authors";
 import { GET_REVIEWS } from "../graphql/queries/get-reviews";
 import { useQuery } from "@apollo/client";
 import { IGame } from "../interfaces/game.interface";
-import GamesList from "../components/GamesList";
+import GamesList from "../components/games/GamesList";
+import CreateGame from "../components/games/CreateGame";
 
 const GamesPage: React.FC = () => {
   const {
@@ -26,11 +27,15 @@ const GamesPage: React.FC = () => {
   );
 
   return (
-    <GamesList
-      games={gamesData?.games}
-      authors={authors || []}
-      reviews={reviews || []}
-    />
+    <Fragment>
+      <GamesList
+        games={gamesData?.games}
+        authors={authors || []}
+        reviews={reviews || []}
+      />
+      
+      <CreateGame />
+    </Fragment>
   );
 };
 

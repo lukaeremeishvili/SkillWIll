@@ -1,5 +1,5 @@
 import React from "react";
-import { IGame } from "../interfaces/game.interface";
+import { IGame } from "../../interfaces/game.interface";
 import GameItem from "./GameItem";
 
 interface GamesListProps {
