@@ -2,22 +2,23 @@ import React from "react";
 import AddForm, { FormField } from "../forms/AddForm";
 import { ADD_GAME } from "../../graphql/mutations/add-game";
 import { useMutation } from "@apollo/client";
-import { GET_GAMES } from "../../graphql/queries/get-games";
-import { IGame } from "../../interfaces/game.interface";
+
 
 const CreateGame: React.FC = () => {
 
-    const [CreateGame, {loading, error}] = useMutation(ADD_GAME, {
-        update(cache, {data:CreateGame}) {
-            const data = cache.readQuery({
-                query: GET_GAMES
-            }) as {games: IGame[]};
-            cache.writeQuery({
-                query: GET_GAMES,
-                data: {games: [CreateGame, ...data?.games || []]}
-            });
-        }
-    });
+  const [CreateGame, { loading, error }] = useMutation(ADD_GAME, {
+    update(cache, { data }) {
+        if (!data?.addGame) return;
+        cache.modify({
+            fields: {
+                games(existingGames = [], { toReference }) {
+                    const newGameRef = toReference(data.addGame);
+                    return [...existingGames, newGameRef];
+                }
+            }
+        });
+    }
+});
 
 
     /* Form Construction */
