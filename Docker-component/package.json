@@ -1,0 +1,20 @@
+{
+  "name": "docker-component",
+  "version": "1.0.0",
+  "description": "Email Validator",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "validator": "^13.9.0" 
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
