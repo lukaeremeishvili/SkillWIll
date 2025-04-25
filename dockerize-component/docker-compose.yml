@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  pg:
+    image: postgres:latest
+    container_name: pg_container
+    env_file:
+      - ./server/.env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - myNet
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server
+    volumes:
+      - /usr/src/app/node_modules
+      - ./server:/usr/src/app
+    depends_on:
+      - pg
+    ports:
+      - "5000:5000"
+    networks:
+      - myNet
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    stdin_open: true
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - "3000:3000"
+    networks:
+      - myNet
+    depends_on:
+      - server
+
+networks:
+  myNet:
+    driver: bridge
+
+volumes:
+  pg_data:
+    driver: local
